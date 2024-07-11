@@ -1,11 +1,41 @@
-#ex
-function PrintGugu() {
-    for (var j = 1; j <= 9; j++) {
-        console.log(9 + " x " + j + " = " + (i * j));
-    }
-}
+#JS
+*즉시 실행 함수(Immediately Invoked Function Expression)
+(function(){	____________	})();
 
-PrintGugu();
+*배열 함수
+뒷부분 값을 삭제		:pop()
+뒷부분 값을 추가		:push(____var____)
+앞부분 값을 삭제		:shift()
+앞부분 값을 추가		:unshift(____var____)
+
+특정위치 요소			:splice(index, 제거할 요소 개수, 추가될 요소...)
+a<=index<b 얕은복사	:slice(시작번호, 끝번호)							:return arr
+배열 합치기			:concat()										:return arr
+
+테스트 통과 확인		:every(____function____)						:return boolean
+T일때까지 테스트		:some(____function____)							:T일경우 return true
+함수 결과를 배열로		:map(____function____)							:return arr
+	ex) var arr = [1, 2, 3, 4];
+		var isEven = function(value){
+			return value%2 === 0;
+		};
+		var newArr = arr.map(isEven);	=>[false, true, false, true]
+함수 결과 T만 배열로	:filter(____function____)						:return arr
+
+함수반복문			:forEach(____function____)
+누산기, 좌>우 진행		:reduce( function (previousValue, currentValue){
+							} );
+	ex)	var arr = [1, 2, 3, 4];
+		var value = arr.reduce( function (previousValue, currentValue){
+									return previousValue+currentValue;
+								});			=> 10
+순서 거꾸로			:reverse()
+알파벳순, 함수순		:sort()					=> 1, 10, 11, 12, 2, 20, 21 순서로 정렬
+					 sort(____function____)
+문자열로 바꾸기		:toString()										:return String	=>[ERROR]NullPointerException
+문자열 배열 반환		:valueOf()										:return String	=>"null" 반환
+하나의 문자열로		:join()					=> "1,2,3,4"
+					 join('-')				=> "1-2-3-4"
 
 
 
@@ -193,7 +223,7 @@ create table [TABLE 이름](
 		);
 
 *TABLE 데이터 삽입
-insert into [TABLE 이름]	(테이블명) VALUES (데이터);
+insert into [TABLE 이름] VALUES (데이터);
 	(ex)INSERT INTO employees (emp_name, emp_salary, emp_dept_id)
 		VALUES ('Jane Smith', 60000.00, 2),
 			   ('Michael Johnson', 55000.00, 1),
@@ -261,3 +291,56 @@ flush privileges;
 	-TIME		: HHH:MM:SS								<<<<<
 	-DATETIME	: YYYY-MM-DD HHH:MM:SS	(입력된 시간)
 	-TIMESTAMP	: YYYY-MM-DD HHH:MM:SS	(컴퓨터의 시간)	<<<<<
+	
+	
+#JDBC
+https://amy-it.tistory.com/61
+
+import java.sql.*;
+
+//JDBC 생성
+public static void getConnection() throws Exception{
+	try {
+			//1.변수선언
+			String driver = "oracle.jdbc.driver.OracleDriver";
+			<!--String url = "jdbc:mysql://localhost/dbName";-->
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			Connection con = null;
+			String userid = "smu";
+			String password = "smu";
+			
+			//2.드라이버로딩
+			Class.forName(driver);
+			
+			//3.DB연결
+			con = DriverManager.getConnection(url, userid, password);
+			
+
+
+
+
+			String sql = "select ____컬럼NAME____ from user";
+
+			//4.Statement생성
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			//질의수행
+			*stmt.execute(“____query____”);         //any SQL
+			*stmt.executeQuery(“____query____”);    //SELECT					: return ResultSet
+			*stmt.executeUpdate(“____query____”);   //INSERT, UPDATE, DELETE	: return 변경된 레코드의 개수 정수
+
+			//ResultSet받기
+			while ( rs.next() )
+				  System.out.println( rs.getInt( "____컬럼NAME____"or 위치값(1~...) ) );
+
+			}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+			//Close
+			if (rs != null) rs.close();
+			if (stmt != null) stmt.close();
+			if (con != null) con.close();
+		}
+}
