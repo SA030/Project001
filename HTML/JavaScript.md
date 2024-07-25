@@ -37,7 +37,14 @@ T일때까지 테스트		:some(____function____)							:T일경우 return true
 하나의 문자열로		:join()					=> "1,2,3,4"
 					 join('-')				=> "1-2-3-4"
 
+*JSON 객체 탐색
+for(value in obj) {
+  console.log(obj[value]);
+}
 
+Object.keys(obj).forEach(function(key) {
+	console.log(obj[key]);
+});
 
 #HTML find by ID/class
 *id 정보를 통해 찾음
