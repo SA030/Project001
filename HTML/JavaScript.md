@@ -183,8 +183,15 @@ ${mvo.name}
 mysql -u [ID] -p
 	=>PW:__________
 	
+mysql -h [host] -u [ID] -p
+	=>PW:__________
+	
+create user [ID]@[host] identified by [PW]
+	
 *DB 생성
 create database [DB 이름];
+create database [DB 이름] default character set utf-8 default collate utf-8_general_ci;
+												*문자열 저장 시 인코딩	*정렬 및 비교방식
 
 *DB 사용, 이동
 use [DB 이름]
@@ -260,10 +267,14 @@ delete from [TABLE 이름] where (field 이름)="(값)";
 select (field 이름) from [TABLE 이름] where (field 이름)="(값)"
 	(ex) SELECT * FROM [TABLE 이름]; : [TABLE 이름]의 모든 데이터 보기
 
+*사용자, 호스트 조회
+select user, host from mysql.user
+
 *권한 설정
 grant all privileges on [DB 이름].* to [ID]@'%' identified by ＇암호’;
 grant all privileges on [DB 이름].* to [ID]@'localhost' identified by ＇암호’;
 												*해당 컴퓨터에서만 접근 가능
+											
 *권한 설정 후 DBMS 적용
 flush privileges;
 
