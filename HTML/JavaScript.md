@@ -224,10 +224,10 @@ show tables;
 
 *TABLE 생성
 create table [TABLE 이름](
-필드명1	자료형(크기)	NOT NULL	AUTO_INCREMENT,
+필드명1	자료형(크기)	NOT NULL	AUTO_INCREMENT		PRIMARY KEY		FOREIGN KEY(field 이름) REFERENCES [TABLE 이름](field 이름),	
 필드명2	자료형(크기)	NOT NULL,
 필드명3	자료형(크기)
-					*NULL 허용	*자동 숫자 입력(++)
+					*NULL 허용	*자동 숫자 입력(++)	*PK 지정			*FK 지정
 );
 	(ex)CREATE TABLE employees (
 			emp_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -266,6 +266,14 @@ delete from [TABLE 이름] where (field 이름)="(값)";
 *데이터 검색
 select (field 이름) from [TABLE 이름] where (field 이름)="(값)"
 	(ex) SELECT * FROM [TABLE 이름]; : [TABLE 이름]의 모든 데이터 보기
+	
+*PK<->FK ON DELETE, ON UPDATE (____option____)
+-CASCADE		:FK에서도 삭제와 수정이 함께
+-SET NULL 		:FK는 NULL로 변경
+-NO ACTION		:FK 변경X
+-SET DEFAULT 	:FK 기본값으로 설정
+-RESTRICT		:FK 데이터 존재 시 PK삭제,수정X
+
 
 *사용자, 호스트 조회
 select user, host from mysql.user
