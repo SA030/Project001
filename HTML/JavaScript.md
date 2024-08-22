@@ -245,10 +245,15 @@ insert into [TABLE 이름] VALUES (데이터);
 
 *DB/TABLE 삭제
 drop database [DB 이름];
-drop tacle [TABLE 이름];
+drop table [TABLE 이름];
 
 *필드 추가
 alter table [TABLE 이름] add (field 이름) (field 타입);
+*숫자 자동 증가 초기화
+						AUTO_INCREMENT = [시작할 값];
+*PK/FK 추가
+						add constraint PRIMARY KEY(field 이름);
+						add constraint FOREIGN KEY(field 이름) REFERENCES [TABLE 이름](field 이름);
 *필드 삭제
 						drop (field 이름);
 *필드 수정
