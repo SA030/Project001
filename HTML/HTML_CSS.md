@@ -86,3 +86,11 @@ selector	property	value
  }
  -service 호출		: 새로고침 할 때 마다 생성 (구현 위치)
  -destory 호출		: WAS 종료/웹 어플리케이션이 새롭게 갱신
+ 
+ -setContextType(	"[MIME 타입]		;[문자집합]")
+					 콘텐츠 타입 정보	 콘텐츠 인코딩 정보
+					 Multi-purpose	UTF-8
+					 Internet
+					 Mail
+					 Extension
+ (ex) response.setContentType("text/html;charset-UTF-8");
